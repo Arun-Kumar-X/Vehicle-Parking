@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Parking Lot</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+<body>
+    <div id="main">
+        <div id="edit-block">
+            <!-- Text: Edit Parking Lot -->
+            <div class="container mt-4" id="edit-content">
+                <h4 class="text-center">Edit Parking Lot #{{lot.id}}</h4>
+            </div>
+
+            <form action="/edit/{{lot.id}}" method="post">
+                <div class="container mt-4">
+                    <div class="mx-auto" style="max-width: 600px;">
+                        <!-- Form Content -->
+                        <div class="d-flex flex-column align-items-center">
+                            <!-- Lot Name -->
+                            <div class="d-flex align-items-center mb-3 w-100">
+                                <label for="lot" class="fw-semibold form-label me-2 mb-0" style="width: 150px; text-align: right;">Lot Name :</label>
+                                <input type="text" class="form-control w-auto" id="lot" name="lot" value="{{ lot.lot_name }}">
+                            </div>
+
+                            <!-- Address -->
+                            <div class="d-flex align-items-start mb-3 w-100">
+                                <label for="address" class="fw-semibold form-label me-2 mb-0" style="width: 150px; text-align: right;">Address :</label>
+                                <textarea class="form-control w-auto" rows="3" id="address" name="address" >{{ lot.address }}</textarea>
+                            </div>
+
+                            <!-- Pin Code -->
+                            <div class="d-flex align-items-center mb-3 w-100">
+                                <label for="pin-code" class="fw-semibold form-label me-2 mb-0" style="width: 150px; text-align: right;">Pin Code :</label>
+                                <input type="number" class="form-control w-auto" id="pin-code" name="pin-code" value="{{ lot.pincode }}">
+                            </div>
+
+                            <!-- Price -->
+                            <div class="d-flex align-items-center mb-3 w-100">
+                                <label for="price" class="fw-semibold form-label me-2 mb-0" style="width: 150px; text-align: right;">Price : <br> (per hour)</label>
+                                <input type="number" class="form-control w-auto" id="price" name="price" value="{{ lot.price }}">
+                            </div>
+
+                            <!-- Max Spots -->
+                            <div class="d-flex align-items-center mb-3 w-100">
+                                <label for="spots" class="fw-semibold form-label me-2 mb-0" style="width: 150px; text-align: right;">Max Spots :</label>
+                                <input type="number" class="form-control w-auto" id="spots" name="spots" value="{{ lot.max_spots }}">
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-flex justify-content-center gap-3 mt-3">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="/admin" class="btn btn-danger">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> 
+</body>
+</html>

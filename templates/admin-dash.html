@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+<body>
+    <div id="main">
+        <div id="admin-dash">
+
+            <!-- Nav Bar -->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand  text-primary " href="/admin"><h3>Welcome Admin!</h3></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item ">
+                    <a class="nav-link active" aria-current="page" href="/admin">Home</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/registered_user">Users</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/summary">Summary</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link  text-danger" href="/login">Logout</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+                </div>
+            </div>
+            </nav>
+            
+            
+            <!-- Text: Parking Lots -->
+            <div class="container mt-4" id="dashboard-content">
+                <h4 class="text-center text-primary">Parking Lots</h4>
+            </div>
+
+            <div style="padding-left: 35px" >
+                <!-- Lots Card -->
+                <div class="d-flex flex-wrap overflow-auto" style="max-height: 570px;">
+                    
+                    {% for lot in lots %}
+                    <!-- Cards -->
+                    <div id="cards" class="mb-3">
+                        <h5 class="text-center mb-1">Parking #{{lot.id}}</h5>
+
+                        <!-- Edit | Delete -->
+                        <div class="d-flex justify-content-center align-items-center gap-1 mb-1">
+                            <a href="/edit/{{lot.id}}" class="link-warning link-underline-warning link-offset-2">Edit</a>
+                            <span class="text-muted">|</span>
+                            <a href="/delete/{{lot.id}}" class="link-danger link-underline-danger link-offset-2">Delete</a>
+                        </div>
+
+                        <!-- Count Display -->
+                        <p class="text-center text-success mb-1">(Occupied : {{counts[lot.id]}}/{{lot.max_spots}})</p>
+                        <hr class="border border-primary border-1 opacity-80 my-2">
+
+                        <!-- Spot Status -->
+                        <div class="d-flex flex-wrap overflow-auto" style="max-height: 132px; gap: 4px;">
+                            {% for spot in lot.spots %}
+                                {% if spot.status == 'A' %}
+                                    <a href="/view/{{lot.id}}/{{spot.id}}" id="spot-a" class="h5 text-center d-block text-decoration-none mb-0">A{{loop.index}}</a>
+                                {% else %}
+                                    <a href="/view/{{lot.id}}/{{spot.id}}" id="spot-o" class="h5 text-center d-block text-decoration-none mb-0">O{{loop.index}}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}    
+                        
+                </div>
+            </div>
+
+            <!-- Add Parking Lot -->
+            <div class="container mt-4 d-flex justify-content-center">
+                <a href="/new_lot" class="btn btn-primary">+ Add Lots</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
